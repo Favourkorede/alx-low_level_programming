@@ -1,23 +1,24 @@
 #include "main.h"
 
 /**
- * _strcmp - Compares pointers to two strings.
- * @s1: A pointer to the first string to be compared.
- * @s2: A pointer to the second string to be compared.
+ * _strcmp - This compares two strings
+ * @s1: This is the first string
+ * @s2: This is the second string
  *
- * Return: If str1 < str2, the negative difference of
- * the first unmatched characters.
- *         If s1 == s2, 0.
- *         If s1 > s2, the positive difference of
- *         the first unmatched characters.
+ * Return: An int, 0 if equal, +ve is 1 > 2
+ * -ve if 1 < 2
  */
 int _strcmp(char *s1, char *s2)
 {
-	while ((*s1 && *s2) && (*s1 == *s2))
+	int count = 0, count2 = 0;
+
+	while (count == 0)
 	{
-		s1++;
-		s2++;
+		if ((*(s1 + count2) == '\0') && (*(s2 + count2) == '\0'))
+			break;
+		count = *(s1 + count2) - *(s2 + count2);
+		count2++;
 	}
 
-	return (*s1 - *s2);
+	return (count);
 }
