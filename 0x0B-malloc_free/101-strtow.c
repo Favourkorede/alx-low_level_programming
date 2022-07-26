@@ -1,36 +1,48 @@
 #include "main.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-/**
- * print_tab - Prints an array of string
- * @tab: The array to print
- *
- * Return: nothing
- */
-void print_tab(char **tab)
-{
-int i;
-for (i = 0; tab[i] != NULL; ++i)
-{
-printf("%s\n", tab[i]);
-}
-}
 
 /**
- * main - check the code for ALX School students.
+ * strtow - Splits a string into individual words
+ * @str: This is the string to be split
  *
- * Return: 1 if an error occurred, 0 otherwise
+ * Return: The function returns a pointer to an array of strings (words)
  */
-int main(void)
+char **strtow(char *str)
 {
-char **tab;
-tab = strtow("Holberton School #cisfun ");
-if (tab == NULL)
-{
-printf("Failed\n");
-return (1);
-}
-print_tab(tab);
-return (0);
+	char **arr;
+	int i, j, k, wc, size;
+
+	if (str == NULL || *str == '\0')
+		return (NULL);
+
+	for (i = size = 0; str[i] != '\0'; i++)
+		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
+			size++;
+
+	arr = malloc(sizeof(char *) * (size + 1));
+	if (arr == NULL || size == 0)
+		return (NULL);
+
+	for (i = wc = 0; i < size; i++)
+	{
+		for (j = wc; str[j] != '\0'; j++)
+		{
+			if (str[j] == ' ')
+				wc++;
+			if (str[j] != ' ' && (str[j + 1] == ' ' || str[j + 1] == '\0'))
+			{
+				arr[i] = malloc(sizeof(char) * (j - wc + 2));
+				if (arr[i] == NULL)
+					return (NULL);
+				break;
+			}
+		}
+		for (k = 0; wc <= j; wc++, k++)
+		{
+			arr[i][k] = str[wc];
+		}
+		arr[i][k] = '\0';
+	}
+	return (arr);
 }
